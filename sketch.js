@@ -7,7 +7,7 @@ var ground, invisibleGround, groundImage;
 
 var cloudsGroup, cloudImage;
 var obstaclesGroup, obstacle1, obstacle2, obstacle3, obstacle4;
-var backgroundImg
+var backgroundImg;
 var score=0;
 var jumpSound, collidedSound;
 
@@ -45,12 +45,10 @@ function setup() {
   sun.scale = 0.1
   
   trex = createSprite(50,height-70,20,50);
-  
-  
   trex.addAnimation("running", trex_running);
   trex.addAnimation("collided", trex_collided);
-  trex.setCollider('circle',0,0,350)
-  trex.scale = 0.08
+  trex.setCollider('circle',0,0,350);
+  trex.scale = 0.08;
   // trex.debug=true
   
   invisibleGround = createSprite(width/2,height-10,width,125);  
@@ -94,7 +92,7 @@ function draw() {
     score = score + Math.round(getFrameRate()/60);
     ground.velocityX = -(6 + 3*score/100);
     
-    if(touches.length > 0 && trex.y  >= height-120) {
+    if((touches.length > 0 || keyDown("space")) && trex.y  >= height-120) {
       jumpSound.play()
       trex.velocityY = -10;
        touches = [];
@@ -132,7 +130,7 @@ function draw() {
     obstaclesGroup.setLifetimeEach(-1);
     cloudsGroup.setLifetimeEach(-1);
     
-    if(touches.length>0) {      
+    if(touches.length > 0 || mousePressedOver(restart)) {      
       reset();
       touches = []
     }
